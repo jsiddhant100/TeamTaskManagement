@@ -1,0 +1,7 @@
+1. run: npm init -y
+2. npm install express cors uuid
+3. npm install -D typescript ts-node-dev @types/node @types/express @types/uuid
+4. npx tsc --init
+
+npm run dev - run backend
+npm run dev - run backend but command in frontend folder
