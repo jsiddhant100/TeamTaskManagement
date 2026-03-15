@@ -15,14 +15,6 @@ app.use((req: Request, res: Response) => {
         message: `Route ${req.originalUrl} not found`
     })
 })
-app.use((err: any, req: Request, res: Response, next: NextFunction) => {
-    console.error(err.stack)
-    res.status(500).json({
-        success: false,
-        message: 'Internal Server Error',
-        error: process.env.NODE_ENV === 'development' ? err.message : undefined
-    })
-})
 
 const PORT = 3000
 

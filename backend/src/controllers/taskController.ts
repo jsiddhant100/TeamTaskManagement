@@ -33,16 +33,16 @@ export const getTasks = (req: Request, res: Response) => {
     sendSuccess(res, tasks);
 };
 
-export const getTaskById = (req: Request, res: Response) => {
-    const { id } = req.params;
-    const task = tasks.find(t => t.id === id);
+// export const getTaskById = (req: Request, res: Response) => {
+//     const { id } = req.params;
+//     const task = tasks.find(t => t.id === id);
     
-    if (!task) {
-        return sendError(res, 'Task Not Found', 404);
-    }
+//     if (!task) {
+//         return sendError(res, 'Task Not Found', 404);
+//     }
     
-    sendSuccess(res, task);
-};
+//     sendSuccess(res, task);
+// };
 
 export const createTask = (req: Request, res: Response) => {
     try {
@@ -95,7 +95,6 @@ export const updateTask = (req: Request, res: Response) => {
     const task = tasks[taskIndex];
     if (!task) return sendError(res, 'Task Not Found', 404);
     
-    // Validations for updates
     if (title !== undefined) {
         if (typeof title !== 'string' || title.trim().length === 0) {
             return sendError(res, 'Title must be a non-empty string');

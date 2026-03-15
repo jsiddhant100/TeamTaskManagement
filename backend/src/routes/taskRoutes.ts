@@ -1,7 +1,7 @@
 import express, { Request, Response, NextFunction } from 'express'
 import {
     getTasks,
-    getTaskById,
+    // getTaskById,
     createTask,
     updateTask,
     deleteTask
@@ -25,7 +25,7 @@ const verifyAuth = (req: Request, res: Response, next: NextFunction) => {
 }
 
 taskRoute.get('/', getTasks)
-taskRoute.get('/:id', getTaskById)
+// taskRoute.get('/:id', getTaskById)
 taskRoute.post('/', createTask)
 taskRoute.put('/:id', verifyAuth, updateTask)
 taskRoute.delete('/:id', verifyAuth, deleteTask)

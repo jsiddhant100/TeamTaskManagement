@@ -3,26 +3,22 @@ import type { ReactNode } from 'react';
 import { fetchTasks, createTask, deleteTask, updateTask } from '../services/apiService';
 import type { Task } from '../services/apiService';
 
-/**
- * This is the list of "Tools" and "Data" that every component can use.
- */
-interface TaskContextType {
-  tasks: Task[];           // The list of tasks
-  isLoading: boolean;      // Is the app busy loading?
-  error: string | null;    // If something goes wrong, we save the message here
-  success: string | null;  // If something works, we save the message here
-  
-  isAdding: boolean;       // Is the "Add Task" form open?
-  taskToEdit: Task | null; // Which task are we editing right now? (null means none)
-  searchQuery: string;     // What is the user typing in the search bar?
 
-  // The functions (Actions)
+interface TaskContextType {
+  tasks: Task[];          
+  isLoading: boolean;      
+  error: string | null;    
+  success: string | null; 
+  
+  isAdding: boolean;       
+  taskToEdit: Task | null;
+  searchQuery: string;     
+
   refreshTasks: () => void;
   addNewTask: (data: any) => void;
   saveEditedTask: (id: string, data: any) => void;
   removeTask: (id: string) => void;
   
-  // Simple "Toggles" to open/close forms
   setIsAdding: (val: boolean) => void;
   setTaskToEdit: (task: Task | null) => void;
   setSearchQuery: (query: string) => void;
@@ -31,7 +27,6 @@ interface TaskContextType {
 
 const TaskContext = createContext<TaskContextType | undefined>(undefined);
 
-// A simple hook to grab the tools from the box
 export const useTasks = () => {
   const context = useContext(TaskContext);
   if (!context) throw new Error('Wrap your app in TaskProvider!');
@@ -73,19 +68,18 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     }
   };
 
-  // 3. Function to Edit a Task
+
   const saveEditedTask = async (id: string, data: any) => {
     try {
       await updateTask(id, data);
       setSuccess("Task Updated!");
-      setTaskToEdit(null); // Close the edit form
+      setTaskToEdit(null); 
       refreshTasks();
     } catch (err: any) {
       setError("Failed to update task.");
     }
   };
 
-  // 4. Function to Delete a Task
   const removeTask = async (id: string) => {
     try {
       await deleteTask(id);
@@ -101,7 +95,6 @@ export const TaskProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     setSuccess(null);
   };
 
-  // Load tasks automatically when the user searches
   useEffect(() => {
     refreshTasks();
   }, [refreshTasks]);
